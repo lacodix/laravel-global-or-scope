@@ -16,7 +16,7 @@ trait GlobalOrScope
     {
         $scopesToApply = Arr::get(static::$globalOrScopes, static::class, []);
 
-        if (! empty($scopesToApply)) {
+        if (count($scopesToApply) > 0) {
             static::addGlobalScope(new OrScope($scopesToApply));
         }
     }
@@ -30,18 +30,21 @@ trait GlobalOrScope
     {
         if (is_string($scope) && ($implementation instanceof Closure || $implementation instanceof Scope)) {
             return static::$globalOrScopes[static::class][$scope] = $implementation;
-        } elseif ($scope instanceof Closure) {
+        }
+        if ($scope instanceof Closure) {
             return static::$globalOrScopes[static::class][spl_object_hash($scope)] = $scope;
-        } elseif ($scope instanceof Scope) {
+        }
+        if ($scope instanceof Scope) {
             return static::$globalOrScopes[static::class][$scope::class] = $scope;
-        } elseif (is_string($scope) && class_exists($scope) && is_subclass_of($scope, Scope::class)) {
-            return static::$globalOrScopes[static::class][$scope] = new $scope;
+        }
+        if (is_string($scope) && class_exists($scope) && is_subclass_of($scope, Scope::class)) {
+            return static::$globalOrScopes[static::class][$scope] = new $scope();
         }
 
         throw new InvalidArgumentException('Global scope must be an instance of Closure or Scope or be a class name of a class extending '.Scope::class);
     }
 
-    public static function addGlobalOrScopes(array $scopes)
+    public static function addGlobalOrScopes(array $scopes): void
     {
         foreach ($scopes as $key => $scope) {
             if (is_string($key)) {
