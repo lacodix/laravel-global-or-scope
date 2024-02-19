@@ -44,9 +44,27 @@ class OrScope implements Scope
      */
     public function extend(Builder $builder): void
     {
+        $this->addWithGlobalOrScope($builder);
+        $this->addWithGlobalOrScopes($builder);
         $this->addWithoutGlobalOrScope($builder);
         $this->addWithoutGlobalOrScopes($builder);
         $this->addRemovedOrScopes($builder);
+    }
+
+    /**
+     * @param  Builder<Model>  $builder
+     */
+    protected function addWithGlobalOrScope(Builder $builder): void
+    {
+        $builder->macro('withGlobalOrScope', function (Builder $builder, $identifier, $scope) {
+            $this->scopes[$identifier] = $scope;
+
+            if (method_exists($scope, 'extend')) {
+                $scope->extend($builder);
+            }
+
+            return $builder;
+        });
     }
 
     /**
