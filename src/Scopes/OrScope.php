@@ -25,7 +25,7 @@ class OrScope implements Scope
                     continue;
                 }
 
-                $builder->orWhere(function (Builder $query) use ($scope, $model) {
+                $builder->orWhere(static function (Builder $query) use ($scope, $model): void {
                     if ($scope instanceof Closure) {
                         $scope($query);
                     }
@@ -72,7 +72,7 @@ class OrScope implements Scope
      */
     protected function addWithoutGlobalOrScopes(Builder $builder): void
     {
-        $builder->macro('withoutGlobalOrScopes', function (Builder $builder, array $scopes = null) {
+        $builder->macro('withoutGlobalOrScopes', function (Builder $builder, ?array $scopes = null) {
             if (! is_array($scopes)) {
                 $scopes = array_keys($this->scopes);
             }
@@ -85,12 +85,11 @@ class OrScope implements Scope
         });
     }
 
-
     /**
      * @param  Builder<Model>  $builder
      */
     protected function addRemovedOrScopes(Builder $builder): void
     {
-        $builder->macro('removedOrScopes', fn (Builder $builder) => $this->removedOrScopes);
+        $builder->macro('removedOrScopes', fn () => $this->removedOrScopes);
     }
 }
