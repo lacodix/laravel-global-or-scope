@@ -5,8 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Lacodix\LaravelGlobalOrScope\Traits\GlobalOrScope;
 
-test('GlobalOrScopeIsApplied', function (): never {
-    dd(Post::query()->withoutGlobalOrScopes()->where('user_id', 1)->toSql());
+test('GlobalOrScopeIsApplied', function () {
     $model = new EloquentGlobalOrScopesTestModel;
     $query = $model->newQuery();
     $this->assertSame('select * from "table" where (("active" = ?) or ("confirmed" = ?))', $query->toSql());
@@ -241,34 +240,5 @@ class ConfirmedScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         return $builder->where('confirmed', 0);
-    }
-}
-
-
-class Post extends Model
-{
-    use GlobalOrScope;
-
-    public static function boot(): void
-    {
-        static::addGlobalOrScopes([Scope1::class, Scope2::class]);
-
-        parent::boot();
-    }
-}
-
-class Scope1 implements Scope
-{
-    public function apply(Builder $builder, Model $model)
-    {
-        return $builder->whereNull('col1')->where('col2', 1);
-    }
-}
-
-class Scope2 implements Scope
-{
-    public function apply(Builder $builder, Model $model)
-    {
-        return $builder->where('col3', 2);
     }
 }
