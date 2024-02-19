@@ -8,6 +8,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithViews;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Support\Str;
+use Lacodix\LaravelGlobalOrScope\LaravelGlobalOrScopeServiceProvider;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -51,6 +52,19 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
                 Str::afterLast($factory::class, '\\')
             )
         );
+    }
+
+    /**
+     * Get package providers.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return array<int, class-string<\Illuminate\Support\ServiceProvider>>
+     */
+    protected function getPackageProviders($app)
+    {
+        return [
+            LaravelGlobalOrScopeServiceProvider::class,
+        ];
     }
 
     /**
