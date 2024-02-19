@@ -19,6 +19,13 @@ test('GlobalOrScopeCanBeRemoved', function () {
     $this->assertEquals([0], $query->getBindings());
 });
 
+test('QueryGlobalOrScopeIsApplied', function () {
+    $model = new EloquentQueryGlobalOrScopesTestModel;
+    $query = $model->newQuery()->withGlobalOrScopes([new ActiveScope, new ConfirmedScope]);
+    $this->assertSame('select * from "table" where (("active" = ?) or ("confirmed" = ?))', $query->toSql());
+    $this->assertEquals([1,0], $query->getBindings());
+});
+
 test('ClassNameGlobalOrScopeIsApplied', function () {
     $model = new EloquentClassNameGlobalOrScopesTestModel;
     $query = $model->newQuery();
@@ -105,6 +112,17 @@ test('HasQueryWhereBothModelsHaveGlobalOrScopes', function () {
     $this->assertEquals(['bar', 1, 0, 'baz', 1, 0], $query->getBindings());
 });
 
+class EloquentQueryGlobalOrScopesTestModel extends Model
+{
+    use GlobalOrScope;
+
+    protected $table = 'table';
+
+    public static function booting(): void
+    {
+        static::clearGlobalOrScope();
+    }
+}
 
 class EloquentGlobalOrScopesTestModel extends Model
 {
