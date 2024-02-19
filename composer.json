@@ -28,7 +28,7 @@
         "friendsofphp/php-cs-fixer": "^3.13",
         "illuminate/database": "^9.47|^10.0|^11.0",
         "laravel/pint": "^1.0",
-        "nunomaduro/collision": "^7.8",
+        "nunomaduro/collision": "^6.0|^7.8",
         "nunomaduro/phpinsights": "^2.6",
         "larastan/larastan": "^2.0.1",
         "orchestra/testbench": "^7.19|^8.8",
