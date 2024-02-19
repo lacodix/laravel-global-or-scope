@@ -91,6 +91,6 @@ class OrScope implements Scope
      */
     protected function addRemovedOrScopes(Builder $builder): void
     {
-        $builder->macro('removedOrScopes', fn(Builder $builder) => $this->removedOrScopes);
+        $builder->macro('removedOrScopes', fn (Builder $builder) => $this->removedOrScopes);
     }
 }
