@@ -35,5 +35,5 @@ Post::query()->removedOrScopes();
 If you want to disable all global scopes for the whole request, just call
 
 ```php
-Post::clearGlobalOrScope();
+Post::clearGlobalOrScopes();
 ```

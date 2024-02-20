@@ -120,7 +120,7 @@ class EloquentQueryGlobalOrScopesTestModel extends Model
 
     public static function booting(): void
     {
-        static::clearGlobalOrScope();
+        static::clearGlobalOrScopes();
     }
 }
 
@@ -132,7 +132,7 @@ class EloquentGlobalOrScopesTestModel extends Model
 
     public static function booting(): void
     {
-        static::clearGlobalOrScope();
+        static::clearGlobalOrScopes();
     }
 
     public static function boot()
@@ -151,7 +151,7 @@ class EloquentClassNameGlobalOrScopesTestModel extends Model
 
     public static function booting(): void
     {
-        static::clearGlobalOrScope();
+        static::clearGlobalOrScopes();
     }
 
     public static function boot()
@@ -170,7 +170,7 @@ class EloquentClosureGlobalOrScopesTestModel extends Model
 
     public static function booting(): void
     {
-        static::clearGlobalOrScope();
+        static::clearGlobalOrScopes();
     }
 
     public static function boot(): void
@@ -205,7 +205,7 @@ class EloquentGlobalOrScopesArrayTestModel extends Model
 
     public static function booting(): void
     {
-        static::clearGlobalOrScope();
+        static::clearGlobalOrScopes();
     }
 
     public static function boot()
