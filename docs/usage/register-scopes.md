@@ -95,6 +95,19 @@ class Post extends Model
 }
 ```
 
+## withGlobalOrScopes
+
+You can also add global scopes with or condition on the fly with using the query builder.
+In this case you even don't need the GlobalOrScope trait. You can just apply scopes on 
+every query:
+
+```php
+Post::query()->withGlobalOrScopes([new Scope1, new Scope2]);
+```
+
+Attention: like in laravels base functionality (withGlobalScope) you need to add initialized
+scopes, not only classnames.
+
 ## Combining with normal global scopes
 
 It is also possible to combine the global or scopes with normal global scopes.
