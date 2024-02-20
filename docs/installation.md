@@ -9,5 +9,4 @@ You can install the package via composer:
 composer require lacodix/laravel-global-or-scope
 ```
 
-There are noe resources, no service providers, no config files. 
-Just start using.
+There are no resources, no config files. Just start using.
