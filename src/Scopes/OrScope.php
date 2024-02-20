@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
+use InvalidArgumentException;
 
 class OrScope implements Scope
 {
@@ -28,10 +29,10 @@ class OrScope implements Scope
                 $builder->orWhere(static function (Builder $query) use ($scope, $model): void {
                     if ($scope instanceof Closure) {
                         $scope($query);
-                    }
-
-                    if ($scope instanceof Scope) {
+                    } elseif ($scope instanceof Scope) {
                         $scope->apply($query, $model);
+                    } else {
+                        throw new InvalidArgumentException('Global scope must be an instance of Closure or Scope or be a class name of a class extending '.Scope::class);
                     }
                 });
             }
