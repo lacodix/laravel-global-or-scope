@@ -21,7 +21,7 @@ trait GlobalOrScope
         }
     }
 
-    public static function clearGlobalOrScope(): void
+    public static function clearGlobalOrScopes(): void
     {
         static::$globalOrScopes = [];
     }
