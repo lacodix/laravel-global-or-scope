@@ -1,6 +1,6 @@
 ---
 title: Advanced Usage
-weight: 1
+weight: 3
 ---
 
 Finally you can use our internal OrScope directly. This can be useful for all cases where
