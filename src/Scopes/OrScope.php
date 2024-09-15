@@ -18,6 +18,11 @@ class OrScope implements Scope
         $this->scopes = $scopes;
     }
 
+    /**
+     * @param Builder<Model> $builder
+     *
+     * @return Builder<Model>
+     */
     public function apply(Builder $builder, Model $model): Builder
     {
         return $builder->where(function (Builder $builder) use ($model) {
@@ -60,8 +65,10 @@ class OrScope implements Scope
                 $scope = $scope::class;
             }
 
+            /** @phpstan-ignore-next-line */
             unset($this->scopes[$scope]);
 
+            /** @phpstan-ignore-next-line */
             $this->removedOrScopes[] = $scope;
 
             return $builder;
@@ -75,6 +82,7 @@ class OrScope implements Scope
     {
         $builder->macro('withoutGlobalOrScopes', function (Builder $builder, ?array $scopes = null) {
             if (! is_array($scopes)) {
+                /** @phpstan-ignore-next-line */
                 $scopes = array_keys($this->scopes);
             }
 
@@ -91,6 +99,7 @@ class OrScope implements Scope
      */
     protected function addRemovedOrScopes(Builder $builder): void
     {
+        /** @phpstan-ignore-next-line */
         $builder->macro('removedOrScopes', fn () => $this->removedOrScopes);
     }
 }
