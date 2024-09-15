@@ -20,7 +20,6 @@ class LaravelGlobalOrScopeServiceProvider extends PackageServiceProvider
 
         Builder::macro(
             'withGlobalOrScopes',
-            // @phpstan-ignore-next-line
             fn (?array $scopes = null) => $this->withGlobalScope(md5(serialize($scopes)), new OrScope($scopes))
         );
     }
