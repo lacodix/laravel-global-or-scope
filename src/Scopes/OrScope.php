@@ -19,13 +19,11 @@ class OrScope implements Scope
     }
 
     /**
-     * @param Builder<Model> $builder
-     *
-     * @return Builder<Model>
+     * @param Builder<covariant Model> $builder
      */
-    public function apply(Builder $builder, Model $model): Builder
+    public function apply(Builder $builder, Model $model): void
     {
-        return $builder->where(function (Builder $builder) use ($model) {
+        $builder->where(function (Builder $builder) use ($model): void {
             foreach ($this->scopes as $identifier => $scope) {
                 if (! isset($this->scopes[$identifier])) {
                     continue;
@@ -41,7 +39,6 @@ class OrScope implements Scope
                     }
                 });
             }
-            return $builder;
         });
     }
 
