@@ -5,3 +5,9 @@ parameters:
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true
+    ignoreErrors:
+        # GlobalOrScope is the package's public API trait, consumed by host
+        # applications rather than used inside src/, so PHPStan reports it as unused.
+        -
+            identifier: trait.unused
+            path: src/Traits/GlobalOrScope.php
